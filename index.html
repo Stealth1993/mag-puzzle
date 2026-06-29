@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Crossword Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Bundle used to generate the PDF locally -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <div class="toolbar">
+        <button onclick="resetPuzzle()" class="btn-reset">🔄 Reset Puzzle</button>
+        <span class="auto-save-badge">● Progress Auto-Saved</span>
+        <button onclick="downloadPDF()" class="btn-submit">📥 Submit & Download PDF</button>
+    </div>
+
+    <!-- EVERYTHING INSIDE THIS DIV GETS PRINTED TO THE PDF -->
+    <div id="printable-area">
+        
+        <header class="branding-header">
+            <img src="./assets/logo.png" onerror="this.onerror=null; this.src='https://www.lmjinnovations.com/images/lmj-logo@2x.png';" alt="LMJ Innovations" class="logo">
+            <div class="title-area">
+                <h1 id="puz-title">Loading Puzzle...</h1>
+                <p id="puz-subtitle"></p>
+            </div>
+        </header>
+
+        <section class="player-info">
+            <div class="input-group">
+                <label>Full Name:</label>
+                <input type="text" id="emp-name" placeholder="Your Name here">
+            </div>
+            <div class="input-group">
+                <label>Employee ID:</label>
+                <input type="text" id="emp-id" placeholder="Your Employee ID here">
+            </div>
+            <div class="input-group">
+                <label>Email Address:</label>
+                <input type="email" id="emp-email" placeholder="Your Email here">
+            </div>
+            <div class="input-group">
+                <label>Mobile No:</label>
+                <input type="tel" id="emp-mobile" placeholder="Your Mobile Number here">
+            </div>
+        </section>
+
+        <main class="puzzle-container">
+            <div id="grid-wrapper"></div>
+        </main>
+
+        <section class="clues-container">
+            <div class="clue-column">
+                <h3>ACROSS</h3>
+                <ul id="clues-across"></ul>
+            </div>
+            <div class="clue-column">
+                <h3>DOWN</h3>
+                <ul id="clues-down"></ul>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

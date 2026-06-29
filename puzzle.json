@@ -1,0 +1,274 @@
+{
+  "title": "Trivia Crossword Challenge",
+  "subtitle": "Solve every clue and fill the grid. Across & Down 33 entries.",
+  "gridSize": {
+    "rows": 15,
+    "cols": 28
+  },
+  "words": [
+    {
+      "number": 6,
+      "direction": "across",
+      "row": 1,
+      "col": 14,
+      "length": 8,
+      "clue": "I speak all languages but have no tongue. I connect every nation but own no passport."
+    },
+    {
+      "number": 8,
+      "direction": "across",
+      "row": 2,
+      "col": 2,
+      "length": 11,
+      "clue": "I travel where clocks become liars. A father leaves today and returns tomorrow. What am I?"
+    },
+    {
+      "number": 11,
+      "direction": "across",
+      "row": 3,
+      "col": 14,
+      "length": 10,
+      "clue": "I once defeated an entire army with only ten arrows."
+    },
+    {
+      "number": 13,
+      "direction": "across",
+      "row": 4,
+      "col": 22,
+      "length": 6,
+      "clue": "I build towers but rarely live inside them."
+    },
+    {
+      "number": 14,
+      "direction": "across",
+      "row": 5,
+      "col": 14,
+      "length": 6,
+      "clue": "A lonely voice crossed the stars. The answer came before the question."
+    },
+    {
+      "number": 17,
+      "direction": "across",
+      "row": 6,
+      "col": 6,
+      "length": 21,
+      "clue": "The king who never wore a crown, yet Dalal Street called him royalty."
+    },
+    {
+      "number": 19,
+      "direction": "across",
+      "row": 8,
+      "col": 0,
+      "length": 14,
+      "clue": "I never owned a cow, yet I changed the milk of a nation."
+    },
+    {
+      "number": 20,
+      "direction": "across",
+      "row": 8,
+      "col": 20,
+      "length": 4,
+      "clue": "I have four letters, millions watch me, and ninety minutes decide my fate."
+    },
+    {
+      "number": 24,
+      "direction": "across",
+      "row": 10,
+      "col": 5,
+      "length": 5,
+      "clue": "Fifty soldiers march together. If their leader stumbles, the market trembles."
+    },
+    {
+      "number": 25,
+      "direction": "across",
+      "row": 10,
+      "col": 22,
+      "length": 6,
+      "clue": "Small feet, giant shadows."
+    },
+    {
+      "number": 28,
+      "direction": "across",
+      "row": 11,
+      "col": 12,
+      "length": 6,
+      "clue": "Before they landed, they already spoke."
+    },
+    {
+      "number": 29,
+      "direction": "across",
+      "row": 12,
+      "col": 0,
+      "length": 9,
+      "clue": "I am born from numbers, worshipped by traders, and feared by investors."
+    },
+    {
+      "number": 31,
+      "direction": "across",
+      "row": 13,
+      "col": 11,
+      "length": 5,
+      "clue": "Walk forward to meet me, walk backward to understand me."
+    },
+    {
+      "number": 32,
+      "direction": "across",
+      "row": 14,
+      "col": 3,
+      "length": 11,
+      "clue": "I enter your house without doors, build cities without bricks, and steal ideas without touching your head."
+    },
+    {
+      "number": 33,
+      "direction": "across",
+      "row": 14,
+      "col": 15,
+      "length": 13,
+      "clue": "When everyone attacked, I built walls."
+    },
+    {
+      "number": 1,
+      "direction": "down",
+      "row": 0,
+      "col": 4,
+      "length": 6,
+      "clue": "The air itself waits before I jump."
+    },
+    {
+      "number": 2,
+      "direction": "down",
+      "row": 0,
+      "col": 10,
+      "length": 5,
+      "clue": "One man dreamed of stars, another taught a nation, both carried the same name."
+    },
+    {
+      "number": 3,
+      "direction": "down",
+      "row": 1,
+      "col": 6,
+      "length": 6,
+      "clue": "Invisible roads carry voices because of me."
+    },
+    {
+      "number": 4,
+      "direction": "down",
+      "row": 1,
+      "col": 8,
+      "length": 6,
+      "clue": "I sleep during the day and become valuable at night."
+    },
+    {
+      "number": 5,
+      "direction": "down",
+      "row": 1,
+      "col": 12,
+      "length": 6,
+      "clue": "While others spun stories, I delivered thunder."
+    },
+    {
+      "number": 7,
+      "direction": "down",
+      "row": 1,
+      "col": 16,
+      "length": 14,
+      "clue": "I am a tower that nobody lives in and a road that nobody sees."
+    },
+    {
+      "number": 9,
+      "direction": "down",
+      "row": 1,
+      "col": 23,
+      "length": 9,
+      "clue": "I launched fire into the sky but taught children to dream."
+    },
+    {
+      "number": 10,
+      "direction": "down",
+      "row": 2,
+      "col": 0,
+      "length": 11,
+      "clue": "Before India learned to believe, one man lifted a cup that nobody expected him to touch."
+    },
+    {
+      "number": 12,
+      "direction": "down",
+      "row": 4,
+      "col": 27,
+      "length": 11,
+      "clue": "I rise without wings and fall without wounds. Millions celebrate or cry because of my mood."
+    },
+    {
+      "number": 15,
+      "direction": "down",
+      "row": 5,
+      "col": 19,
+      "length": 10,
+      "clue": "I lost my freedom so millions could gain theirs. My classroom had no walls, and my students became a nation."
+    },
+    {
+      "number": 16,
+      "direction": "down",
+      "row": 6,
+      "col": 21,
+      "length": 7,
+      "clue": "Without legs I travel, without eyes I guide, without a mouth I speak."
+    },
+    {
+      "number": 18,
+      "direction": "down",
+      "row": 7,
+      "col": 4,
+      "length": 8,
+      "clue": "Cities run beneath my signature."
+    },
+    {
+      "number": 21,
+      "direction": "down",
+      "row": 9,
+      "col": 12,
+      "length": 5,
+      "clue": "By the time defenders wake up, I have already reached tomorrow."
+    },
+    {
+      "number": 22,
+      "direction": "down",
+      "row": 9,
+      "col": 25,
+      "length": 6,
+      "clue": "I often arrived late, spoke little, and left with the trophy."
+    },
+    {
+      "number": 23,
+      "direction": "down",
+      "row": 10,
+      "col": 27,
+      "length": 5,
+      "clue": "Einstein bends me. Nolan films me. Cooper fears me."
+    },
+    {
+      "number": 26,
+      "direction": "down",
+      "row": 11,
+      "col": 2,
+      "length": 4,
+      "clue": "Once I lived in every pocket and survived many falls."
+    },
+    {
+      "number": 27,
+      "direction": "down",
+      "row": 11,
+      "col": 6,
+      "length": 4,
+      "clue": "I entered late but changed everyone's language."
+    },
+    {
+      "number": 30,
+      "direction": "down",
+      "row": 11,
+      "col": 23,
+      "length": 4,
+      "clue": "The shuttle and racket become friends for a second too long. That friendship is my crime."
+    }
+  ]
+}
