@@ -40,7 +40,6 @@ body {
     transition: max-width 0.3s ease; 
 }
 
-/* WIDE DESKTOP MODE (Triggered by Split View) */
 #printable-area.split-view-active {
     max-width: 1300px; 
 }
@@ -141,7 +140,6 @@ body {
     .btn-split-view { display: none !important; }
 }
 
-/* PUZZLE CONTAINER */
 .puzzle-container {
     margin-top: 25px;
     margin-bottom: 25px;
@@ -192,7 +190,6 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
 .btn-icon { background: #fff; border: 1px solid #bbb; padding: 5px 12px; border-radius: 4px; font-size: 13px; cursor: pointer; margin-left: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);}
 .btn-icon:active { background: #eee; }
 
-/* CLUES WRAPPER */
 .clues-wrapper {
     border: 2px solid #fb8c00; 
     border-radius: 12px;
@@ -238,7 +235,7 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
 
 
 /* ====================================================
-   PDF PRINT MODE (Strict blocks to stop sliced text)
+   PDF PRINT MODE
    ==================================================== */
 .pdf-mode { 
     padding: 20px 30px !important; 
@@ -246,19 +243,16 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     max-width: 100% !important; 
 }
 
-/* 1. Shrink header margins to keep the Grid safely on Page 1 */
 .pdf-mode .branding-header { margin-bottom: 10px !important; padding-bottom: 10px !important; }
 .pdf-mode .table-header { margin-bottom: 10px !important; }
 .pdf-mode .player-info { margin-bottom: 10px !important; padding: 10px !important; }
 
-/* 2. Grid styling strictly for Page 1 */
 .pdf-mode .puzzle-container { 
     margin-top: 5px !important; 
     margin-bottom: 10px !important; 
 }
 .pdf-mode table.cw-grid { width: 100% !important; margin: 0 auto !important; }
 
-/* 3. Strip layout-grids entirely. Everything becomes display: block */
 .pdf-mode #main-layout { display: block !important; }
 
 .pdf-mode .grid-controls, 
@@ -266,12 +260,11 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     display: none !important; 
 }
 
-/* Force clues to cleanly break and safely anchor to the top of Page 2 */
 .pdf-mode .clues-wrapper { 
     page-break-before: always !important; 
     break-before: page !important;
     box-shadow: 0 0 0 4px #7e57c2 !important; 
-    margin-top: 5px !important; /* Small buffer to prevent the border from bleeding onto Page 1 */
+    margin-top: 5px !important; 
     display: block !important;
     height: auto !important;
     max-height: none !important;
@@ -285,14 +278,12 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     overflow: visible !important; 
 }
 
-/* 4. Format columns vertically to avoid side-by-side slicing */
 .pdf-mode .clue-column { 
     display: block !important; 
     width: 100% !important; 
     margin-bottom: 20px !important;
 }
 
-/* 5. Protect lines and timestamps from being sliced */
 .pdf-mode .clue-column li { 
     page-break-inside: avoid !important; 
     break-inside: avoid !important;
