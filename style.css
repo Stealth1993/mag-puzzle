@@ -32,12 +32,17 @@ body {
 .auto-save-badge { font-size: 0.85em; color: #8fd19e; }
 
 #printable-area {
-    background: var(--paper);
+    background: #faf8ff; 
     width: 100%;
     max-width: 900px;
     padding: 35px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
     box-sizing: border-box;
+    transition: max-width 0.3s ease; 
+}
+
+/* WIDE DESKTOP MODE (Triggered by Split View) */
+#printable-area.split-view-active {
+    max-width: 1300px; 
 }
 
 .branding-header {
@@ -68,13 +73,26 @@ body {
 
 .title-area p { margin: 6px 0 0 0; color: #555; font-size: 13px; }
 
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 0 10px 0;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #333;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
 .player-info {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 12px;
-    background: #fafafa;
+    background: #ffffff;
     padding: 15px;
     border: 1px solid #ddd;
+    border-radius: 6px;
     margin-bottom: 15px;
 }
 
@@ -93,39 +111,61 @@ body {
     font-family: sans-serif;
 }
 
-.table-header {
-    display: flex;
-    justify-content: space-between;
-    max-width: 840px;
-    margin: 35px auto 10px auto;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: #333;
-    font-size: 13px;
-    padding: 0 5px;
-    text-transform: uppercase;
+/* =======================================
+   SPLIT VIEW STYLES
+   ======================================= */
+@media (min-width: 850px) {
+    #main-layout.split-view {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+        margin-top: 25px; 
+    }
+    #main-layout.split-view .puzzle-container,
+    #main-layout.split-view .clues-wrapper {
+        margin-top: 0; 
+        margin-bottom: 0;
+    }
+    #main-layout.split-view .puzzle-container {
+        flex: 1.2;
+    }
+    #main-layout.split-view .clues-wrapper {
+        flex: 1;
+    }
+    #main-layout.split-view .clues-container {
+        grid-template-columns: 1fr; 
+        max-height: 600px; 
+    }
+}
+@media (max-width: 849px) {
+    .btn-split-view { display: none !important; }
+}
+
+/* PUZZLE CONTAINER */
+.puzzle-container {
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 #grid-wrapper { display: flex; justify-content: center; margin: 0 0 10px 0; overflow-x: auto;}
-table.cw-grid { border-collapse: collapse; background-color: var(--bg-dark); border: 2px solid #000; }
+table.cw-grid { border-collapse: collapse; background-color: var(--bg-dark); border: 3px solid #311b92; }
 
 table.cw-grid td {
-    width: 30px;
-    height: 30px; 
+    width: 32px;
+    aspect-ratio: 1 / 1; 
     padding: 0;
     position: relative;
     border: 1px solid rgba(255,255,255,0.15);
 }
 
-table.cw-grid td.active-cell { background-color: #fff; border: 1px solid #000; }
-
+table.cw-grid td.active-cell { background-color: #fff; border: 1px solid #7e57c2; }
 table.cw-grid td.highlighted { background-color: #fffacd !important; }
 table.cw-grid td.highlighted input:focus { background: #ffeb3b; outline: none; }
 
 table.cw-grid td .cell-num {
     position: absolute;
-    top: 1px; left: 2px;
-    font-size: 7.5px; font-weight: bold; font-family: sans-serif; color: #333; pointer-events: none;
+    top: 2px; left: 3px;
+    font-size: 9px; font-weight: bold; font-family: sans-serif; pointer-events: none;
 }
 
 table.cw-grid td input {
@@ -143,85 +183,134 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     justify-content: space-between;
     align-items: center;
     max-width: 840px;
-    margin: 0 auto 25px auto;
+    margin: 0 auto 10px auto;
     font-family: sans-serif;
 }
 
+.left-controls { display: flex; align-items: center; gap: 10px; }
 .btn-subtle-reset { background: none; border: 1px solid #dc3545; color: #dc3545; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer;}
 .btn-icon { background: #fff; border: 1px solid #bbb; padding: 5px 12px; border-radius: 4px; font-size: 13px; cursor: pointer; margin-left: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);}
 .btn-icon:active { background: #eee; }
+
+/* CLUES WRAPPER */
+.clues-wrapper {
+    border: 2px solid #fb8c00; 
+    border-radius: 12px;
+    box-shadow: 0 0 0 4px #7e57c2, 0 4px 15px rgba(0,0,0,0.1);
+    background: #ffffff;
+    padding: 25px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.clues-main-title { text-align: center; margin-bottom: 25px; }
+.clues-main-title h2 { margin: 0; font-size: 32px; font-weight: 900; color: #111528; letter-spacing: 1px; text-transform: uppercase; }
+
+.tricolor-line {
+    height: 5px; width: 140px; margin: 8px auto;
+    background: linear-gradient(to right, #7e57c2 33.3%, #e91e63 33.3%, #e91e63 66.6%, #fb8c00 66.6%);
+}
+
+.clues-main-title p { margin: 5px 0 0 0; font-size: 15px; font-style: italic; color: #512da8; }
 
 .clues-container { 
     display: grid; 
     grid-template-columns: 1fr 1fr; 
     gap: 30px; 
-    margin-top: 15px;
     max-height: 400px; 
     overflow-y: auto;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #fafafa;
 }
 
-.clue-column h3 { border-bottom: 2px solid #000; padding-bottom: 5px; font-size: 15px; margin-top: 0;}
-.clue-column ul { list-style: none; padding-left: 0; margin: 0; font-size: 12.5px; line-height: 1.55;}
-.clue-column li { margin-bottom: 8px; transition: all 0.3s ease; }
+.clue-column h3 { background-color: #7e57c2; padding: 8px; border-radius: 8px; color: white; text-align: center; font-size: 16px; margin-top: 0; text-transform: uppercase; }
+.clue-column:nth-child(2) h3 { background-color: #d81b60; } 
 
-.clue-filled { text-decoration: line-through; color: #999; }
+.clue-column ul { list-style: none; padding-left: 0; margin: 0; font-size: 13px; line-height: 1.55;}
+.clue-column li { margin-bottom: 12px; display: flex; align-items: flex-start; transition: all 0.3s ease; }
 
+.clue-badge {
+    display: inline-flex; justify-content: center; align-items: center; width: 22px; height: 22px;
+    border-radius: 50%; color: white; font-weight: bold; font-size: 11px; margin-right: 10px; flex-shrink: 0;
+}
+
+.clue-text { flex: 1; line-height: 1.4; }
+.clue-filled { text-decoration: line-through; opacity: 0.6; }
 .pdf-stamp { text-align: right; font-size: 10px; color: #888; font-family: monospace; margin-top: 30px;}
 
 
-/* ===================
-   PDF PRINT MODE
-   ===================*/
-.pdf-mode { padding: 30px !important; }
+/* ====================================================
+   PDF PRINT MODE (Strict blocks to stop sliced text)
+   ==================================================== */
+.pdf-mode { 
+    padding: 20px 30px !important; 
+    background: white !important;
+    max-width: 100% !important; 
+}
+
+/* 1. Shrink header margins to keep the Grid safely on Page 1 */
+.pdf-mode .branding-header { margin-bottom: 10px !important; padding-bottom: 10px !important; }
+.pdf-mode .table-header { margin-bottom: 10px !important; }
+.pdf-mode .player-info { margin-bottom: 10px !important; padding: 10px !important; }
+
+/* 2. Grid styling strictly for Page 1 */
+.pdf-mode .puzzle-container { 
+    margin-top: 5px !important; 
+    margin-bottom: 10px !important; 
+}
+.pdf-mode table.cw-grid { width: 100% !important; margin: 0 auto !important; }
+
+/* 3. Strip layout-grids entirely. Everything becomes display: block */
+.pdf-mode #main-layout { display: block !important; }
 
 .pdf-mode .grid-controls, 
 .pdf-mode .notice-banner { 
     display: none !important; 
 }
 
-.pdf-mode .clues-container { 
+/* Force clues to cleanly break and safely anchor to the top of Page 2 */
+.pdf-mode .clues-wrapper { 
     page-break-before: always !important; 
-    max-height: none !important; 
-    overflow: visible !important; 
-    border: none !important; 
-    background: transparent !important;
-    margin-top: 0 !important;
+    break-before: page !important;
+    box-shadow: 0 0 0 4px #7e57c2 !important; 
+    margin-top: 5px !important; /* Small buffer to prevent the border from bleeding onto Page 1 */
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
 }
 
+.pdf-mode .clues-container { 
+    display: block !important; 
+    height: auto !important;
+    max-height: none !important; 
+    overflow: visible !important; 
+}
+
+/* 4. Format columns vertically to avoid side-by-side slicing */
+.pdf-mode .clue-column { 
+    display: block !important; 
+    width: 100% !important; 
+    margin-bottom: 20px !important;
+}
+
+/* 5. Protect lines and timestamps from being sliced */
 .pdf-mode .clue-column li { 
     page-break-inside: avoid !important; 
-    margin-bottom: 10px !important;
+    break-inside: avoid !important;
+    margin-bottom: 12px !important;
 }
 
 .pdf-mode .pdf-stamp {
+    display: block !important; 
     page-break-inside: avoid !important;
+    break-inside: avoid !important;
     margin-top: 40px !important;
     padding-bottom: 20px !important;
 }
 
-.pdf-mode #grid-wrapper {
-    page-break-inside: avoid !important;
-}
-
 @media (max-width: 650px) {
-    .branding-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 15px;
-    }
-    .logo { 
-        margin: 0;
-        max-height: 55px; 
-    }
-    .title-area { 
-        width: 100%; 
-    }
-    
+    .branding-header { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
+    .logo { margin: 0; max-height: 55px; }
+    .title-area { width: 100%; }
     .clues-container { grid-template-columns: 1fr; gap: 20px; }
     #printable-area { padding: 15px; }
 }
@@ -229,6 +318,6 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
 @media print {
     body { background: white; padding: 0; }
     .toolbar, .no-print, .grid-controls { display: none !important; }
-    #printable-area { box-shadow: none; padding: 0; width: 100%; max-width: 100%; }
+    #printable-area { box-shadow: none; border: none; padding: 0; width: 100%; max-width: 100%; }
     .clues-container { max-height: none !important; overflow: visible !important; border: none !important; background: transparent !important; }
 }

@@ -10,6 +10,12 @@ let currentDir = 'across';
 let currentWordCoords = [];
 let activeCoord = null;
 
+const clueColors = ['#e91e63', '#0097a7', '#7e57c2', '#f57c00'];
+
+function getClueColor(num) {
+    return clueColors[(num - 1) % clueColors.length];
+}
+
 async function init() {
     const res = await fetch('puzzle.json');
     puzzleData = await res.json();
@@ -66,6 +72,7 @@ function buildGrid() {
                     const numSpan = document.createElement('span');
                     numSpan.className = 'cell-num';
                     numSpan.innerText = cell.number;
+                    numSpan.style.color = getClueColor(cell.number);
                     td.appendChild(numSpan);
                 }
 
@@ -122,7 +129,6 @@ function handleCellInput(e) {
     saveProgress();
     checkCompletedClues();
     
-    // Auto-hop to next
     if (e.target.value) {
         let idx = currentWordCoords.indexOf(activeCoord);
         if (idx !== -1 && idx < currentWordCoords.length - 1) {
@@ -169,7 +175,10 @@ function buildClues() {
     puzzleData.words.forEach(w => {
         const li = document.createElement('li');
         li.id = `clue-${w.number}-${w.direction}`;
-        li.innerHTML = `<strong>${w.number}</strong> &nbsp;${w.clue}`;
+        li.innerHTML = `
+            <span class="clue-badge" style="background-color: ${getClueColor(w.number)}">${w.number}</span> 
+            <span class="clue-text">${w.clue}</span>
+        `;
         if (w.direction === 'across') acrossUl.appendChild(li);
         else downUl.appendChild(li);
     });
@@ -273,11 +282,21 @@ function validateAndSubmit() {
 }
 
 function executePDFGeneration(empId) {
-    document.querySelectorAll('.active-cell').forEach(td => td.classList.remove('highlighted')); // Clear highlights for clean PDF
+    // CRITICAL: Scroll to the very top to prevent html2canvas from cropping your clues block!
+    window.scrollTo(0, 0); 
+    
+    document.querySelectorAll('.active-cell').forEach(td => td.classList.remove('highlighted')); 
     document.querySelectorAll('input').forEach(i => i.setAttribute('value', i.value));
     
     const element = document.getElementById('printable-area');
+    const layout = document.getElementById('main-layout');
     
+    const wasSplitView = layout.classList.contains('split-view');
+    if (wasSplitView) {
+        layout.classList.remove('split-view');
+        element.classList.remove('split-view-active');
+    }
+
     element.classList.add('pdf-mode');
 
     const opt = {
@@ -293,10 +312,30 @@ function executePDFGeneration(empId) {
         applyHighlight(); 
         element.classList.remove('pdf-mode'); 
         
+        if (wasSplitView) {
+            layout.classList.add('split-view');
+            element.classList.add('split-view-active');
+        }
+        
         setTimeout(() => {
             alert("✔️ PUZZLE SAVED AS PDF!\n\nPlease attach your downloaded PDF file to an email and send it to:\n\n👉  beyond.bandwidth@lmjinnovations.com");
         }, 800);
     });
+}
+
+function toggleSplitView() {
+    const layout = document.getElementById('main-layout');
+    const area = document.getElementById('printable-area');
+    const btn = document.getElementById('split-btn');
+    
+    layout.classList.toggle('split-view');
+    area.classList.toggle('split-view-active');
+    
+    if (layout.classList.contains('split-view')) {
+        btn.innerHTML = '🖥️ Standard View';
+    } else {
+        btn.innerHTML = '🖥️ Split View';
+    }
 }
 
 window.onload = init;
