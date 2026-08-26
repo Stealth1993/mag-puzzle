@@ -1,298 +1,298 @@
 {
   "title": "Test your IQ and Win a Prize! 🏆",
-  "subtitle": "Solve every clue and fill the 28×25 crossword. Across & Down 32 entries.",
+  "subtitle": "Solve every clue and fill the 20x29 crossword. Across & Down 36 entries.",
   "gridSize": {
-    "rows": 28,
-    "cols": 25
+    "rows": 29,
+    "cols": 20
   },
   "words": [
     {
       "number": 1,
       "direction": "across",
       "row": 0,
-      "col": 10,
-      "length": 7,
-      "clue": "A creature whose name hides a 'bus' - tastes great with masala!"
+      "col": 2,
+      "length": 3,
+      "clue": "I am small but carry light, connecting networks at great speed. What am I?"
     },
     {
       "number": 2,
-      "direction": "down",
-      "row": 0,
-      "col": 12,
-      "length": 7,
-      "clue": "The sacred meeting point of three rivers at Prayagraj, one of which is said to exist only in mythology."
-    },
-    {
-      "number": 3,
       "direction": "across",
-      "row": 2,
-      "col": 18,
-      "length": 3,
-      "clue": "The BBU variant used for our GSM sites."
-    },
-    {
-      "number": 3,
-      "direction": "down",
-      "row": 2,
-      "col": 18,
-      "length": 5,
-      "clue": "I look real and act real, but hold no real power. What am I?"
-    },
-    {
-      "number": 4,
-      "direction": "down",
-      "row": 3,
-      "col": 8,
-      "length": 4,
-      "clue": "One of our network examples used for AMF."
-    },
-    {
-      "number": 5,
-      "direction": "across",
-      "row": 5,
-      "col": 14,
-      "length": 7,
-      "clue": "This island chain is home to the world's most isolated tribe, who still resist all outside contact."
-    },
-    {
-      "number": 5,
-      "direction": "down",
-      "row": 5,
-      "col": 14,
-      "length": 11,
-      "clue": "Which profession faces nature's toughest challenges, yet earns society's deepest respect?"
-    },
-    {
-      "number": 6,
-      "direction": "down",
-      "row": 5,
-      "col": 23,
-      "length": 6,
-      "clue": "Why did the coffee file a police report? It got ____!"
-    },
-    {
-      "number": 7,
-      "direction": "across",
-      "row": 6,
-      "col": 7,
-      "length": 8,
-      "clue": "Our magazine's example term for ENM migration."
-    },
-    {
-      "number": 8,
-      "direction": "across",
-      "row": 6,
-      "col": 22,
+      "row": 1,
+      "col": 0,
       "length": 3,
       "clue": "The alarm block used when an XMU is connected to a BBU."
     },
     {
-      "number": 9,
+      "number": 5,
       "direction": "across",
-      "row": 7,
-      "col": 14,
+      "row": 2,
+      "col": 13,
       "length": 3,
       "clue": "High on the tower I stand, turning radio waves into communication. What am I?"
     },
     {
-      "number": 10,
+      "number": 7,
       "direction": "across",
-      "row": 8,
-      "col": 7,
+      "row": 4,
+      "col": 2,
+      "length": 7,
+      "clue": "The sacred meeting point of three rivers at Prayagraj, one of which is said to exist only in mythology."
+    },
+    {
+      "number": 12,
+      "direction": "across",
+      "row": 6,
+      "col": 10,
       "length": 8,
       "clue": "Rooted in Vaishnavite devotion, this classical dance form from India's northeast is known for its gentle, flowing movements."
     },
     {
-      "number": 11,
-      "direction": "down",
-      "row": 8,
-      "col": 18,
-      "length": 10,
-      "clue": "Provides precise timing and synchronization."
-    },
-    {
-      "number": 12,
-      "direction": "down",
-      "row": 9,
-      "col": 16,
-      "length": 9,
-      "clue": "I am powered by millions yet owned by none. What am I?"
-    },
-    {
       "number": 13,
       "direction": "across",
-      "row": 9,
-      "col": 18,
-      "length": 7,
-      "clue": "This 1757 battle, won by Robert Clive against Siraj-ud-Daulah, opened the door to British political rule in India."
-    },
-    {
-      "number": 14,
-      "direction": "down",
-      "row": 9,
-      "col": 21,
-      "length": 3,
-      "clue": "Our common alarm block used on TMO's Ericsson nodes."
+      "row": 7,
+      "col": 0,
+      "length": 9,
+      "clue": "This Gujarat city, on the banks of the Sabarmati, earned the nickname 'Manchester of India' for its cotton mills."
     },
     {
       "number": 15,
-      "direction": "down",
+      "direction": "across",
       "row": 10,
-      "col": 2,
+      "col": 13,
       "length": 7,
-      "clue": "This ancient east-coast kingdom was so devastated by one Mauryan emperor's war that he renounced violence forever."
+      "clue": "This island chain is home to the world's most isolated tribe, who still resist all outside contact."
     },
     {
       "number": 16,
-      "direction": "down",
-      "row": 10,
-      "col": 4,
-      "length": 7,
-      "clue": "By day a coder, by night a rebel. Who am I? (TV series)"
-    },
-    {
-      "number": 17,
-      "direction": "down",
-      "row": 10,
-      "col": 11,
-      "length": 11,
-      "clue": "Provides 360-degree, non-directional coverage."
-    },
-    {
-      "number": 18,
-      "direction": "down",
-      "row": 11,
-      "col": 8,
+      "direction": "across",
+      "row": 12,
+      "col": 3,
       "length": 12,
       "clue": "Chanakya's ancient treatise on statecraft and economics, said to predate Machiavelli's 'The Prince' by about 1,800 years."
     },
     {
       "number": 19,
       "direction": "across",
-      "row": 12,
-      "col": 7,
-      "length": 13,
-      "clue": "July Townhall topic - one of the Hazards discussed."
+      "row": 14,
+      "col": 3,
+      "length": 7,
+      "clue": "A sea creature whose name hides a 'bus' - tastes great with masala!"
     },
     {
       "number": 20,
       "direction": "across",
       "row": 14,
-      "col": 10,
-      "length": 3,
-      "clue": "Our common alarm block used on AT&T's Ericsson nodes."
-    },
-    {
-      "number": 21,
-      "direction": "across",
-      "row": 16,
-      "col": 0,
-      "length": 10,
-      "clue": "The 11-June-2026 Townhall agenda highlight."
-    },
-    {
-      "number": 22,
-      "direction": "across",
-      "row": 17,
-      "col": 10,
+      "col": 15,
       "length": 5,
-      "clue": "Every soul in the world will taste this."
+      "clue": "I look real and act real, but hold no real power. What am I?"
     },
     {
       "number": 23,
       "direction": "across",
       "row": 17,
-      "col": 18,
-      "length": 3,
-      "clue": "Integrated unit with advanced antenna tech, critical to our 5G rollout."
+      "col": 3,
+      "length": 4,
+      "clue": "Light disappears, and the mystery begins. What show am I?"
     },
     {
       "number": 24,
       "direction": "across",
-      "row": 18,
-      "col": 1,
-      "length": 9,
-      "clue": "This Gujarat city, on the banks of the Sabarmati, earned the nickname 'Manchester of India' for its cotton mills."
-    },
-    {
-      "number": 25,
-      "direction": "down",
-      "row": 18,
-      "col": 5,
-      "length": 4,
-      "clue": "Light disappears, and the mystery begins. What show am I?"
+      "row": 17,
+      "col": 8,
+      "length": 10,
+      "clue": "Provides precise timing and synchronization."
     },
     {
       "number": 26,
       "direction": "across",
       "row": 19,
-      "col": 10,
-      "length": 8,
-      "clue": "The symbol of 'Beyond Bandwidth.'"
+      "col": 3,
+      "length": 13,
+      "clue": "July Townhall topic - one of the hazards discussed that month."
     },
     {
       "number": 27,
-      "direction": "down",
-      "row": 19,
-      "col": 16,
-      "length": 7,
-      "clue": "One of our network examples used for SMF."
+      "direction": "across",
+      "row": 21,
+      "col": 2,
+      "length": 8,
+      "clue": "Our magazine's example term for ENM migration."
     },
     {
       "number": 28,
       "direction": "across",
-      "row": 20,
-      "col": 0,
+      "row": 22,
+      "col": 10,
       "length": 9,
       "clue": "The name of our very first Townhall Insights magazine issue."
     },
     {
+      "number": 30,
+      "direction": "across",
+      "row": 24,
+      "col": 13,
+      "length": 3,
+      "clue": "Integrated unit with advanced antenna tech, critical to our 5G rollout."
+    },
+    {
+      "number": 31,
+      "direction": "across",
+      "row": 25,
+      "col": 1,
+      "length": 7,
+      "clue": "One of our network examples used for UPF."
+    },
+    {
+      "number": 33,
+      "direction": "across",
+      "row": 26,
+      "col": 14,
+      "length": 3,
+      "clue": "Our common alarm block used on TMO's Ericsson nodes."
+    },
+    {
+      "number": 1,
+      "direction": "down",
+      "row": 0,
+      "col": 2,
+      "length": 8,
+      "clue": "The range of radio frequencies allocated for wireless communication."
+    },
+    {
+      "number": 3,
+      "direction": "down",
+      "row": 1,
+      "col": 13,
+      "length": 7,
+      "clue": "One of our network examples used for SMF."
+    },
+    {
+      "number": 4,
+      "direction": "down",
+      "row": 1,
+      "col": 15,
+      "length": 3,
+      "clue": "The BBU variant used for our GSM sites."
+    },
+    {
+      "number": 6,
+      "direction": "down",
+      "row": 4,
+      "col": 0,
+      "length": 6,
+      "clue": "My title is the mystery everyone carries within themselves. What series am I?"
+    },
+    {
+      "number": 8,
+      "direction": "down",
+      "row": 4,
+      "col": 11,
+      "length": 10,
+      "clue": "The 11-June-2026 Townhall agenda highlight."
+    },
+    {
+      "number": 9,
+      "direction": "down",
+      "row": 4,
+      "col": 17,
+      "length": 3,
+      "clue": "I measure success, track progress, and reveal performance. What am I?"
+    },
+    {
+      "number": 10,
+      "direction": "down",
+      "row": 5,
+      "col": 15,
+      "length": 6,
+      "clue": "Why did the coffee file a police report? It got !"
+    },
+    {
+      "number": 11,
+      "direction": "down",
+      "row": 6,
+      "col": 7,
+      "length": 7,
+      "clue": "This ancient east-coast kingdom was so devastated by one Mauryan emperor's war that he renounced violence forever."
+    },
+    {
+      "number": 14,
+      "direction": "down",
+      "row": 7,
+      "col": 4,
+      "length": 9,
+      "clue": "I am powered by millions, yet owned by none. What am I?"
+    },
+    {
+      "number": 15,
+      "direction": "down",
+      "row": 10,
+      "col": 13,
+      "length": 11,
+      "clue": "Which profession faces nature's toughest challenges, yet earns society's deepest respect?"
+    },
+    {
+      "number": 17,
+      "direction": "down",
+      "row": 12,
+      "col": 8,
+      "length": 3,
+      "clue": "Our common alarm block used on AT&T's Ericsson nodes."
+    },
+    {
+      "number": 18,
+      "direction": "down",
+      "row": 13,
+      "col": 17,
+      "length": 11,
+      "clue": "Provides 360-degree, non-directional coverage."
+    },
+    {
+      "number": 21,
+      "direction": "down",
+      "row": 15,
+      "col": 11,
+      "length": 5,
+      "clue": "Every soul in the world will taste this."
+    },
+    {
+      "number": 22,
+      "direction": "down",
+      "row": 16,
+      "col": 5,
+      "length": 7,
+      "clue": "By day a coder, by night a rebel. Who am I? (TV series)"
+    },
+    {
+      "number": 25,
+      "direction": "down",
+      "row": 18,
+      "col": 7,
+      "length": 8,
+      "clue": "The symbol of 'Beyond Bandwidth."
+    },
+    {
       "number": 28,
       "direction": "down",
-      "row": 20,
-      "col": 0,
+      "row": 22,
+      "col": 10,
       "length": 3,
       "clue": "The antenna speaks, the radio listens, but I do the thinking. What am I?"
     },
     {
       "number": 29,
       "direction": "down",
-      "row": 21,
-      "col": 13,
+      "row": 22,
+      "col": 14,
       "length": 7,
-      "clue": "One of our network examples used for UPF."
-    },
-    {
-      "number": 30,
-      "direction": "across",
-      "row": 22,
-      "col": 7,
-      "length": 8,
-      "clue": "Among India's classical languages, this one is a majority tongue in no state today, yet its literature spans 3,000+ years."
-    },
-    {
-      "number": 30,
-      "direction": "down",
-      "row": 22,
-      "col": 7,
-      "length": 3,
-      "clue": "I am small but carry light, connecting networks at great speed. What am I?"
-    },
-    {
-      "number": 31,
-      "direction": "down",
-      "row": 22,
-      "col": 11,
-      "length": 3,
-      "clue": "I measure success, track progress, and reveal performance. What am I?"
+      "clue": "This 1757 battle, won by Robert Clive against Siraj-ud-Daulah, opened the door to British political rule in India."
     },
     {
       "number": 32,
-      "direction": "across",
-      "row": 26,
-      "col": 10,
-      "length": 6,
-      "clue": "My title is the mystery everyone carries within themselves. What series am I?"
+      "direction": "down",
+      "row": 25,
+      "col": 3,
+      "length": 4,
+      "clue": "One of our network examples used for AMF."
     }
   ]
 }
