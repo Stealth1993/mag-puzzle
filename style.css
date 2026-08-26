@@ -26,6 +26,11 @@ body {
     box-sizing: border-box;
     color: white;
     font-family: sans-serif;
+    transition: max-width 0.3s ease;
+}
+
+body:has(.split-view-active) .toolbar {
+    max-width: 1300px;
 }
 
 .btn-submit { background: #28a745; color: white; border: none; padding: 10px 18px; border-radius: 4px; cursor: pointer; font-weight: bold;}
@@ -44,23 +49,27 @@ body {
     max-width: 1300px; 
 }
 
+/* 1. FOOLPROOF HEADER ALIGNMENT (No Absolute Positioning) */
 .branding-header {
     display: flex;
-    align-items: flex-start; 
-    gap: 18px;
+    align-items: center; 
     border-bottom: 3px double #333;
     padding-bottom: 15px;
     margin-bottom: 20px;
 }
 
 .logo { 
+    flex: 0 0 120px; /* Locks the logo width */
     max-height: 42px; 
-    margin-top: 4px;
+    margin: 0;
+    object-fit: contain;
+    object-position: left;
 }
 
 .title-area { 
     flex: 1; 
-    min-width: 0; 
+    text-align: center;
+    margin-right: 120px; /* Perfectly counter-balances the logo width to mathematically center the text */
 }
 
 .title-area h1 { 
@@ -68,9 +77,10 @@ body {
     font-size: clamp(18px, 4vw, 24px); 
     text-transform: uppercase; 
     line-height: 1.1;
+    white-space: nowrap; /* Firmly guarantees the title stays on one line */
 }
 
-.title-area p { margin: 6px 0 0 0; color: #555; font-size: 13px; }
+.title-area p { margin: 6px 0 0 0; color: #555; font-size: 13px; text-align: center; }
 
 .table-header {
     display: flex;
@@ -140,6 +150,8 @@ body {
     .btn-split-view { display: none !important; }
 }
 
+
+/* PUZZLE CONTAINER */
 .puzzle-container {
     margin-top: 25px;
     margin-bottom: 25px;
@@ -190,6 +202,7 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
 .btn-icon { background: #fff; border: 1px solid #bbb; padding: 5px 12px; border-radius: 4px; font-size: 13px; cursor: pointer; margin-left: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);}
 .btn-icon:active { background: #eee; }
 
+/* CLUES WRAPPER */
 .clues-wrapper {
     border: 2px solid #fb8c00; 
     border-radius: 12px;
@@ -247,11 +260,16 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
 .pdf-mode .table-header { margin-bottom: 10px !important; }
 .pdf-mode .player-info { margin-bottom: 10px !important; padding: 10px !important; }
 
+/* 1. Force the cut to happen directly after the grid */
 .pdf-mode .puzzle-container { 
     margin-top: 5px !important; 
-    margin-bottom: 10px !important; 
+    margin-bottom: 0px !important; 
+    page-break-after: always !important; 
+    break-after: page !important;
 }
-.pdf-mode table.cw-grid { width: 100% !important; margin: 0 auto !important; }
+
+/* 2. Scale Grid to 85% to guarantee it never overflows Page 1 naturally */
+.pdf-mode table.cw-grid { width: 85% !important; margin: 0 auto !important; }
 
 .pdf-mode #main-layout { display: block !important; }
 
@@ -260,11 +278,12 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     display: none !important; 
 }
 
+/* 3. Safely anchor Clues block to Page 2 without causing double-page jumps */
 .pdf-mode .clues-wrapper { 
-    page-break-before: always !important; 
-    break-before: page !important;
+    page-break-before: auto !important; 
+    break-before: auto !important;
     box-shadow: 0 0 0 4px #7e57c2 !important; 
-    margin-top: 5px !important; 
+    margin-top: 20px !important; 
     display: block !important;
     height: auto !important;
     max-height: none !important;
@@ -284,10 +303,40 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     margin-bottom: 20px !important;
 }
 
+/* 4. ULTIMATE FIX FOR TEXT SLICING: 
+   Convert list items to absolute positioned layouts. This stops 
+   the html2pdf canvas engine from miscalculating row heights! */
+.pdf-mode .clue-column ul {
+    display: block !important;
+}
+
 .pdf-mode .clue-column li { 
+    display: block !important; 
+    width: 100% !important;
+    position: relative !important;
+    padding-left: 32px !important; 
+    min-height: 25px !important;
     page-break-inside: avoid !important; 
     break-inside: avoid !important;
-    margin-bottom: 12px !important;
+    margin-bottom: 15px !important;
+    box-sizing: border-box !important;
+}
+
+.pdf-mode .clue-badge {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    display: inline-block !important; 
+    line-height: 22px !important; 
+    text-align: center !important;
+    margin: 0 !important;
+}
+
+.pdf-mode .clue-text {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-inside: avoid !important;
 }
 
 .pdf-mode .pdf-stamp {
@@ -298,10 +347,15 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     padding-bottom: 20px !important;
 }
 
+/* Mobile Breakpoint */
 @media (max-width: 650px) {
     .branding-header { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
-    .logo { margin: 0; max-height: 55px; }
-    .title-area { width: 100%; }
+    .logo { flex: auto; max-height: 55px; object-position: center; }
+    
+    /* Safely release text locks on Mobile */
+    .title-area { width: 100%; margin-right: 0; padding: 0; }
+    .title-area h1 { white-space: normal; } 
+    
     .clues-container { grid-template-columns: 1fr; gap: 20px; }
     #printable-area { padding: 15px; }
 }
