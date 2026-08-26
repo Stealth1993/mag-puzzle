@@ -49,7 +49,6 @@ body:has(.split-view-active) .toolbar {
     max-width: 1300px; 
 }
 
-/* 1. FOOLPROOF HEADER ALIGNMENT (No Absolute Positioning) */
 .branding-header {
     display: flex;
     align-items: center; 
@@ -59,7 +58,7 @@ body:has(.split-view-active) .toolbar {
 }
 
 .logo { 
-    flex: 0 0 120px; /* Locks the logo width */
+    flex: 0 0 120px; 
     max-height: 42px; 
     margin: 0;
     object-fit: contain;
@@ -69,7 +68,7 @@ body:has(.split-view-active) .toolbar {
 .title-area { 
     flex: 1; 
     text-align: center;
-    margin-right: 120px; /* Perfectly counter-balances the logo width to mathematically center the text */
+    margin-right: 120px; 
 }
 
 .title-area h1 { 
@@ -260,7 +259,6 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
 .pdf-mode .table-header { margin-bottom: 10px !important; }
 .pdf-mode .player-info { margin-bottom: 10px !important; padding: 10px !important; }
 
-/* 1. Force the cut to happen directly after the grid */
 .pdf-mode .puzzle-container { 
     margin-top: 5px !important; 
     margin-bottom: 0px !important; 
@@ -268,7 +266,6 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     break-after: page !important;
 }
 
-/* 2. Scale Grid to 85% to guarantee it never overflows Page 1 naturally */
 .pdf-mode table.cw-grid { width: 85% !important; margin: 0 auto !important; }
 
 .pdf-mode #main-layout { display: block !important; }
@@ -278,7 +275,6 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     display: none !important; 
 }
 
-/* 3. Safely anchor Clues block to Page 2 without causing double-page jumps */
 .pdf-mode .clues-wrapper { 
     page-break-before: auto !important; 
     break-before: auto !important;
@@ -303,9 +299,7 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     margin-bottom: 20px !important;
 }
 
-/* 4. ULTIMATE FIX FOR TEXT SLICING: 
-   Convert list items to absolute positioned layouts. This stops 
-   the html2pdf canvas engine from miscalculating row heights! */
+
 .pdf-mode .clue-column ul {
     display: block !important;
 }
