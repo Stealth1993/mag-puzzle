@@ -29,6 +29,7 @@ body {
     transition: max-width 0.3s ease;
 }
 
+/* Stretches the toolbar to match the wide desktop mode perfectly */
 body:has(.split-view-active) .toolbar {
     max-width: 1300px;
 }
@@ -45,10 +46,12 @@ body:has(.split-view-active) .toolbar {
     transition: max-width 0.3s ease; 
 }
 
+/* WIDE DESKTOP MODE (Triggered by Split View) */
 #printable-area.split-view-active {
     max-width: 1300px; 
 }
 
+/* FOOLPROOF HEADER ALIGNMENT */
 .branding-header {
     display: flex;
     align-items: center; 
@@ -58,7 +61,7 @@ body:has(.split-view-active) .toolbar {
 }
 
 .logo { 
-    flex: 0 0 120px; 
+    flex: 0 0 120px; /* Locks the logo width */
     max-height: 42px; 
     margin: 0;
     object-fit: contain;
@@ -68,7 +71,7 @@ body:has(.split-view-active) .toolbar {
 .title-area { 
     flex: 1; 
     text-align: center;
-    margin-right: 120px; 
+    margin-right: 120px; /* Perfectly counter-balances the logo width to mathematically center the text */
 }
 
 .title-area h1 { 
@@ -245,29 +248,70 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
 .clue-filled { text-decoration: line-through; opacity: 0.6; }
 .pdf-stamp { text-align: right; font-size: 10px; color: #888; font-family: monospace; margin-top: 30px;}
 
+/* MOBILE BREAKPOINT */
+@media (max-width: 650px) {
+    .branding-header { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
+    .logo { flex: auto; max-height: 55px; object-position: center; }
+    
+    /* Safely release text locks on Mobile */
+    .title-area { width: 100%; margin-right: 0; padding: 0; }
+    .title-area h1 { white-space: normal; } 
+    
+    .clues-container { grid-template-columns: 1fr; gap: 20px; }
+    #printable-area { padding: 15px; }
+}
+
+@media print {
+    body { background: white; padding: 0; }
+    .toolbar, .no-print, .grid-controls { display: none !important; }
+    #printable-area { box-shadow: none; border: none; padding: 0; width: 100%; max-width: 100%; }
+    .clues-container { max-height: none !important; overflow: visible !important; border: none !important; background: transparent !important; }
+}
+
 
 /* ====================================================
-   PDF PRINT MODE
-   ==================================================== */
+   PDF PRINT MODE  ==================================================== */
 .pdf-mode { 
     padding: 20px 30px !important; 
     background: white !important;
     max-width: 100% !important; 
 }
 
-.pdf-mode .branding-header { margin-bottom: 10px !important; padding-bottom: 10px !important; }
+/* 1. MOBILE VIEW: Forces header to remain compact and horizontal during PDF export */
+.pdf-mode .branding-header { 
+    flex-direction: row !important; 
+    margin-bottom: 10px !important; 
+    padding-bottom: 10px !important; 
+}
+.pdf-mode .logo { 
+    flex: 0 0 120px !important; 
+    max-height: 42px !important; 
+    object-position: left !important;
+    margin: 0 !important;
+}
+.pdf-mode .title-area { 
+    width: auto !important; 
+    margin-right: 120px !important; 
+    padding: 0 15px !important; 
+}
+.pdf-mode .title-area h1 { 
+    white-space: nowrap !important; 
+    font-size: 18px !important; 
+}
+
 .pdf-mode .table-header { margin-bottom: 10px !important; }
 .pdf-mode .player-info { margin-bottom: 10px !important; padding: 10px !important; }
 
+/* 2. OPTIMIZED SCALING: Scale Grid to 75% to guarantee a 29-row grid never overflows vertically */
 .pdf-mode .puzzle-container { 
     margin-top: 5px !important; 
     margin-bottom: 0px !important; 
     page-break-after: always !important; 
     break-after: page !important;
 }
+.pdf-mode table.cw-grid { width: 75% !important; margin: 0 auto !important; }
 
-.pdf-mode table.cw-grid { width: 85% !important; margin: 0 auto !important; }
-
+/* 3. Strip layout-grids entirely. Everything becomes display: block */
 .pdf-mode #main-layout { display: block !important; }
 
 .pdf-mode .grid-controls, 
@@ -275,6 +319,7 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     display: none !important; 
 }
 
+/* Safely anchor Clues block to Page 2 */
 .pdf-mode .clues-wrapper { 
     page-break-before: auto !important; 
     break-before: auto !important;
@@ -299,7 +344,7 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     margin-bottom: 20px !important;
 }
 
-
+/* 4. ULTIMATE FIX FOR TEXT SLICING: Convert to Absolute Layouts */
 .pdf-mode .clue-column ul {
     display: block !important;
 }
@@ -339,24 +384,4 @@ table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; 
     break-inside: avoid !important;
     margin-top: 40px !important;
     padding-bottom: 20px !important;
-}
-
-/* Mobile Breakpoint */
-@media (max-width: 650px) {
-    .branding-header { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
-    .logo { flex: auto; max-height: 55px; object-position: center; }
-    
-    /* Safely release text locks on Mobile */
-    .title-area { width: 100%; margin-right: 0; padding: 0; }
-    .title-area h1 { white-space: normal; } 
-    
-    .clues-container { grid-template-columns: 1fr; gap: 20px; }
-    #printable-area { padding: 15px; }
-}
-
-@media print {
-    body { background: white; padding: 0; }
-    .toolbar, .no-print, .grid-controls { display: none !important; }
-    #printable-area { box-shadow: none; border: none; padding: 0; width: 100%; max-width: 100%; }
-    .clues-container { max-height: none !important; overflow: visible !important; border: none !important; background: transparent !important; }
 }
