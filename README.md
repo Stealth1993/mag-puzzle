@@ -1,9 +1,27 @@
-# Trivia Crossword Platform
+# Beyond Bandwidth · Monthly Crossword
 
-This is a **self-contained web app** for hosting a monthly crossword puzzle. It includes:
-- A **landing page** (`index.html`) to collect participant info (Name, ID, Email, Mobile).
-- A dynamic **Crossword page** that loads any puzzle from `crossword/data/puzzle.json`, renders the grid/clues, and supports keyboard navigation, auto-save, and submission with PDF export.
+The office's monthly crossword: a static web app hosted on GitHub Pages, with no build step or backend.
 
-- **Session management** using browser `localStorage` to remember user data and progress.
+## Features
+- **Data-driven**: the grid, clues, edition, title and submission email all live in [`puzzle.json`](puzzle.json).
+- **Desktop**: a large grid sits beside a scrolling clue panel. The active-clue bar stays pinned at the top, and keyboard shortcuts cover moving, switching direction, jumping to the next clue, and undo/redo.
+- **Mobile**: the active-clue bar stays visible while typing, clues are tap-to-jump, and a Zoom button enlarges the grid.
+- **Auto-save** for each month in `localStorage`. Player details carry over between months.
+- **Submit**: checks the player's details and downloads a two-page A4 PDF (details and grid, then clues) to email to the organisers. The grid in the PDF is drawn as an image, so the letters always print clearly.
 
-***Coordinate: (x=0, y=0)***
+## Monthly update (short version)
+1. Put the source PDF or grid image in `Miscc/<Month><Year>/` (git-ignored), plus a private `answers.json`.
+2. Edit `puzzle.json`, and **change its `id`** (e.g. `2026-12`).
+3. Validate: `node tools/validate-puzzle.js puzzle.json --answers Miscc/<Month><Year>/answers.json`
+4. Preview with VS Code Live Server or `python -m http.server`, then test a PDF export with some letters filled in.
+5. Push to `main`.
+
+Full details, how the code works and known pitfalls are in **[agent.md](agent.md)**.
+
+## Files
+| File | Purpose |
+|---|---|
+| `index.html` / `style.css` / `script.js` | The app |
+| `puzzle.json` | This month's puzzle |
+| `tools/validate-puzzle.js` | Pre-publish checker for `puzzle.json` (dev tool, not used by the site) |
+| `agent.md` | Maintainer guide |

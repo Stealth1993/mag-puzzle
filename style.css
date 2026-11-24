@@ -1,387 +1,417 @@
+/* =========================================================
+   Beyond Bandwidth · Monthly Crossword
+   Theme tokens: change these to re-skin a month's edition.
+   ========================================================= */
 :root {
-    --bg-dark: #081b2c;
-    --paper: #ffffff;
+    --ink: #1d1442;
+    --ink-soft: #5b5480;
+    --board: #2a1b6b;            /* grid background (indigo) */
+    --board-line: rgba(255, 255, 255, 0.07);
+    --tile: #ffffff;
+    --tile-border: #7c5cff;
+    --accent: #7c5cff;           /* violet */
+    --accent-strong: #5b3df5;
+    --pink: #ff5fa2;
+    --yellow: #ffd166;
+    --word-hl: #fff3c4;          /* highlighted word */
+    --cell-hl: #ffd166;          /* active cell */
+    --cross-hl: #efeaff;         /* crossing word */
+    --ok: #1f9d6b;
+    --danger: #d64550;
+    --bg: #f4f2fb;
+    --card: #ffffff;
+    --line: #e6e1f5;
+    --radius: 16px;
+    --shadow: 0 1px 2px rgba(29, 20, 66, .05), 0 8px 24px rgba(29, 20, 66, .07);
+    --appbar-h: 60px;
+    --font: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Leave room for the sticky app bar + clue bar when the browser scrolls a focused square into view */
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--appbar-h) + 110px); scroll-padding-bottom: 24px; }
 
 body {
-    font-family: 'Georgia', serif;
-    background-color: #f4f4f9;
     margin: 0;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    font-family: var(--font);
+    color: var(--ink);
+    background:
+        radial-gradient(1200px 400px at 50% -200px, rgba(124, 92, 255, .18), transparent 70%),
+        var(--bg);
+    line-height: 1.45;
+    min-height: 100vh;
 }
 
-.toolbar {
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #222;
-    padding: 12px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    color: white;
-    font-family: sans-serif;
-    transition: max-width 0.3s ease;
+button { font: inherit; color: inherit; }
+svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+[hidden] { display: none !important; }
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    min-height: 40px; padding: 8px 14px;
+    border-radius: 10px; border: 1px solid transparent;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background .15s, border-color .15s, transform .05s, box-shadow .15s;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
 }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 3px solid rgba(124, 92, 255, .45); outline-offset: 2px; }
+.btn-primary { background: var(--pink); color: #fff; box-shadow: 0 4px 14px rgba(255, 95, 162, .35); }
+.btn-primary:hover { background: #f2448f; }
+.btn-ghost { background: var(--card); border-color: var(--line); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent-strong); }
+.btn-ghost[aria-pressed="true"] { background: var(--cross-hl); border-color: var(--accent); color: var(--accent-strong); }
+.btn-danger { background: transparent; border-color: rgba(214, 69, 80, .35); color: var(--danger); }
+.btn-danger:hover { background: rgba(214, 69, 80, .08); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
 
-/* Stretches the toolbar to match the wide desktop mode perfectly */
-body:has(.split-view-active) .toolbar {
-    max-width: 1300px;
+/* ---------- App bar ---------- */
+.appbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(42, 27, 107, .96);
+    backdrop-filter: saturate(1.4) blur(8px);
+    color: #fff;
+    padding-top: env(safe-area-inset-top);
 }
+.appbar-inner {
+    max-width: 1600px; margin: 0 auto; height: var(--appbar-h);
+    display: flex; align-items: center; gap: 14px; padding: 0 20px;
+}
+.appbar-brand { min-width: 0; display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#appbar-series { overflow: hidden; text-overflow: ellipsis; }
+.brand-dot { width: 12px; height: 12px; border-radius: 50%; background: conic-gradient(var(--pink) 0 45%, var(--yellow) 0 60%, var(--accent) 0); box-shadow: 0 0 0 3px rgba(255,255,255,.15); flex-shrink: 0; }
+.appbar-status { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.progress-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255, 255, 255, .12); padding: 5px 12px 5px 6px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0;
+}
+.progress-ring {
+    --p: 0;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: conic-gradient(var(--yellow) calc(var(--p) * 1%), rgba(255, 255, 255, .22) 0);
+    -webkit-mask: radial-gradient(circle, transparent 6px, #000 6.5px);
+            mask: radial-gradient(circle, transparent 6px, #000 6.5px);
+}
+.save-badge { font-size: 12px; color: #b7f0d4; opacity: .85; transition: opacity .3s; }
+.save-badge::before { content: "● "; }
+.save-badge.flash { opacity: 1; }
+.label-short { display: none; }
 
-.btn-submit { background: #28a745; color: white; border: none; padding: 10px 18px; border-radius: 4px; cursor: pointer; font-weight: bold;}
-.auto-save-badge { font-size: 0.85em; color: #8fd19e; }
-
+/* ---------- Page sheet ---------- */
 #printable-area {
-    background: #faf8ff; 
-    width: 100%;
-    max-width: 900px;
-    padding: 35px;
-    box-sizing: border-box;
-    transition: max-width 0.3s ease; 
+    max-width: 1600px; margin: 0 auto;
+    padding: 24px 20px 8px;
 }
 
-/* WIDE DESKTOP MODE (Triggered by Split View) */
-#printable-area.split-view-active {
-    max-width: 1300px; 
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+.card-title { margin: 0 0 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--ink-soft); }
+
+/* Hero */
+.hero {
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; gap: 24px;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 26px 26px;
+    margin-bottom: 16px;
+}
+.logo { height: 46px; width: auto; max-width: 160px; object-fit: contain; flex-shrink: 0; }
+.hero-text { flex: 1; min-width: 0; text-align: center; padding-right: 160px; }
+.eyebrow { margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--accent-strong); }
+.hero h1 { margin: 0; font-size: clamp(26px, 4.2vw, 42px); font-weight: 800; letter-spacing: -.5px; line-height: 1.08; color: var(--board); }
+.subtitle { margin: 8px 0 0; color: var(--ink-soft); font-size: 15px; }
+.hero-stripe { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; display: flex; }
+.hero-stripe span:nth-child(1) { flex: 33; background: var(--pink); }
+.hero-stripe span:nth-child(2) { flex: 12; background: var(--yellow); }
+.hero-stripe span:nth-child(3) { flex: 55; background: var(--board); }
+.hero-stripe.small { position: static; width: 120px; height: 4px; border-radius: 4px; overflow: hidden; margin: 6px 0 0; }
+
+/* Player info */
+.player-info { padding: 18px 20px; margin-bottom: 20px; }
+.player-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 14px; }
+.field { display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+.field em { color: var(--pink); font-style: normal; }
+.field small { font-weight: 500; opacity: .8; }
+.field input {
+    font: inherit; font-size: 16px; font-weight: 500; color: var(--ink);
+    padding: 10px 12px; min-height: 44px;
+    border: 1.5px solid var(--line); border-radius: 10px; background: #fbfaff;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+}
+.field input:focus { outline: none; border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(124, 92, 255, .15); }
+.field input.invalid { border-color: var(--danger); box-shadow: 0 0 0 4px rgba(214, 69, 80, .12); }
+.notice {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin: 14px 0 0; padding: 10px 14px;
+    background: #fff6fa; border: 1px solid #ffd3e6; border-radius: 10px;
+    font-size: 13.5px; color: #6b2448;
+}
+.notice svg { margin-top: 2px; color: var(--pink); }
+.notice a { color: #c2185b; font-weight: 700; overflow-wrap: anywhere; }
+
+/* ---------- Layout ---------- */
+#main-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+
+@media (min-width: 1100px) {
+    #main-layout { grid-template-columns: minmax(0, 1.6fr) minmax(340px, 1fr); align-items: start; }
+    /* Big grid sized by width; the active-clue bar and the clue panel stay in view while it scrolls */
+    .clue-bar { position: sticky; top: calc(var(--appbar-h) + 8px); z-index: 20; }
+    /* Mask the strip between the app bar and the sticky clue bar so grid squares don't peek through */
+    .clue-bar::before { content: ""; position: absolute; left: -2px; right: -2px; bottom: 100%; height: 10px; background: var(--bg); }
+    .clues-column {
+        position: sticky; top: calc(var(--appbar-h) + 16px);
+        max-height: calc(100vh - var(--appbar-h) - 32px); overflow-y: auto; overscroll-behavior: contain;
+    }
+    .board:not(.zoomed) { max-width: calc(var(--cols) * 48px); }
 }
 
-/* FOOLPROOF HEADER ALIGNMENT */
-.branding-header {
-    display: flex;
-    align-items: center; 
-    border-bottom: 3px double #333;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
+/* ---------- Active clue bar ---------- */
+.clue-bar {
+    display: flex; align-items: stretch; gap: 6px;
+    background: var(--board); color: #fff;
+    border-radius: 14px; padding: 6px; margin-bottom: 10px;
+    box-shadow: var(--shadow);
 }
-
-.logo { 
-    flex: 0 0 120px; /* Locks the logo width */
-    max-height: 42px; 
-    margin: 0;
-    object-fit: contain;
-    object-position: left;
+.clue-nav {
+    flex: 0 0 40px; border: 0; border-radius: 10px; cursor: pointer;
+    background: rgba(255, 255, 255, .1); color: #fff; font-size: 24px; line-height: 1;
 }
-
-.title-area { 
-    flex: 1; 
-    text-align: center;
-    margin-right: 120px; /* Perfectly counter-balances the logo width to mathematically center the text */
+.clue-nav:hover { background: rgba(255, 255, 255, .2); }
+.clue-bar-body {
+    flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px;
+    background: none; border: 0; color: #fff; text-align: left; cursor: pointer; padding: 6px 4px; min-height: 48px;
 }
-
-.title-area h1 { 
-    margin: 0; 
-    font-size: clamp(18px, 4vw, 24px); 
-    text-transform: uppercase; 
-    line-height: 1.1;
-    white-space: nowrap; /* Firmly guarantees the title stays on one line */
+.clue-bar-tag {
+    flex-shrink: 0; background: var(--yellow); color: var(--board);
+    font-weight: 800; font-size: 12px; padding: 4px 8px; border-radius: 6px; letter-spacing: .4px;
 }
+.clue-bar-text { font-size: 14.5px; line-height: 1.35; }
 
-.title-area p { margin: 6px 0 0 0; color: #555; font-size: 13px; text-align: center; }
-
-.table-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin: 0 0 10px 0;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: #333;
-    font-size: 13px;
-    text-transform: uppercase;
+/* ---------- Board ---------- */
+.board-scroller {
+    background: var(--board);
+    border-radius: var(--radius);
+    padding: 12px;
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(255,255,255,.04);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
-
-.player-info {
+.board {
+    --cols: 20; --rows: 20; --gap: 3px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    background: #ffffff;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-bottom: 15px;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: var(--gap);
+    width: 100%;
+    max-width: calc(var(--cols) * 44px);
+    margin: 0 auto;
+    container-type: inline-size;
+    background-image:
+        linear-gradient(var(--board-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--board-line) 1px, transparent 1px);
+    background-size: calc((100% + var(--gap)) / var(--cols)) calc((100% + var(--gap)) / var(--rows));
+}
+.board.zoomed { width: calc(var(--cols) * 36px); max-width: none; }
+
+.cell { position: relative; aspect-ratio: 1 / 1; min-width: 0; }
+.cell.block { pointer-events: none; }
+.cell.tile {
+    background: var(--tile);
+    border: 1.5px solid var(--tile-border);
+    border-radius: 18%;
+    transition: background .12s, box-shadow .12s, transform .12s;
+}
+.cell.tile.cross { background: var(--cross-hl); }
+.cell.tile.word { background: var(--word-hl); border-color: #f0b429; }
+.cell.tile.active { background: var(--cell-hl); border-color: var(--pink); box-shadow: 0 0 0 2px var(--pink); z-index: 1; }
+.cell-num {
+    position: absolute; top: 4%; left: 8%;
+    font-size: calc(100cqw / var(--cols) * .26);
+    font-weight: 800; color: var(--pink); line-height: 1; pointer-events: none;
+}
+/* The visible letter is drawn by .cell-print. The input sits on top, transparent,
+   at 16px so iOS doesn't auto-zoom on focus; it only captures typing. */
+.cell .cell-print {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding-top: 12%;
+    font-weight: 800; color: var(--board); text-transform: uppercase;
+    font-size: calc(100cqw / var(--cols) * .5);
+    pointer-events: none;
+}
+.cell input {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    border: 0; margin: 0; padding: 0; background: transparent;
+    font-size: 16px; color: transparent; caret-color: transparent;
+    text-align: center; cursor: pointer; border-radius: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+.cell input::selection { background: transparent; color: transparent; }
+.cell input:focus { outline: none; }
+
+/* ---------- Toolbar under grid ---------- */
+.toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 12px; }
+.tool-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.zoom-only { display: none; }
+.hint { margin: 10px 2px 0; font-size: 12px; color: var(--ink-soft); }
+kbd { font-family: inherit; font-size: 11px; background: #fff; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; }
+
+/* ---------- Clues ---------- */
+.clues-column { padding: 18px 18px 8px; }
+.clues-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+.clues-head h2 { margin: 0; font-size: 22px; font-weight: 800; color: var(--board); }
+.clues-container { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (min-width: 1100px) { .clues-container { grid-template-columns: 1fr; } }
+
+.clue-list h3 {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 6px 0 8px; padding: 8px 12px; border-radius: 10px;
+    background: var(--accent); color: #fff; font-size: 13px; letter-spacing: 1.4px; text-transform: uppercase;
+}
+.clue-list:nth-child(2) h3 { background: var(--pink); }
+.clue-list h3 small { font-size: 12px; letter-spacing: 0; opacity: .9; font-weight: 600; }
+.clue-list ol { list-style: none; margin: 0; padding: 0; }
+
+.clue {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 9px 10px; margin-bottom: 4px; border-radius: 10px;
+    font-size: 14px; line-height: 1.45; cursor: pointer;
+    border: 1px solid transparent;
+    transition: background .12s, border-color .12s, opacity .2s;
+}
+.clue:hover { background: #f7f5ff; }
+.clue.cross { background: #f7f5ff; }
+.clue.active { background: var(--word-hl); border-color: #f0c75e; }
+.clue-num {
+    flex: 0 0 28px; height: 28px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--cross-hl); color: var(--accent-strong); font-weight: 800; font-size: 13px;
+}
+.clue-list:nth-child(2) .clue-num { background: #ffe8f2; color: #c2185b; }
+.clue-text { flex: 1; min-width: 0; }
+.clue-len { color: var(--ink-soft); font-weight: 600; white-space: nowrap; }
+.clue.filled .clue-text { color: var(--ink-soft); }
+.clue.filled .clue-num { background: var(--ok); color: #fff; }
+
+.pdf-stamp { text-align: right; font-size: 11px; color: #888; font-family: ui-monospace, Consolas, monospace; margin-top: 18px; }
+.pdf-stamp:empty { display: none; }
+
+.site-footer { text-align: center; font-size: 12px; color: var(--ink-soft); padding: 18px 16px calc(28px + env(safe-area-inset-bottom)); }
+
+/* ---------- Overlay & toast ---------- */
+.overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(29, 20, 66, .55); display: grid; place-items: center; backdrop-filter: blur(3px); }
+.overlay-card { background: #fff; border-radius: 16px; padding: 24px 32px; text-align: center; box-shadow: var(--shadow); font-weight: 600; }
+.overlay-card p { margin: 12px 0 0; }
+.spinner { width: 36px; height: 36px; margin: 0 auto; border-radius: 50%; border: 4px solid var(--cross-hl); border-top-color: var(--pink); animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.toast {
+    position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%);
+    z-index: 3100; max-width: min(92vw, 480px);
+    background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 12px;
+    font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    animation: toast-in .2s ease-out;
+}
+.toast.error { background: var(--danger); }
+.toast.success { background: var(--ok); }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 10px); } }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+    .player-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-text { padding-right: 0; }
 }
 
-.input-group { display: flex; flex-direction: column; font-family: sans-serif; }
-.input-group label { font-size: 11px; font-weight: bold; color: #444; margin-bottom: 4px;}
-.input-group input { padding: 7px; border: 1px solid #ccc; border-radius: 3px; font-size: 14px;}
+/* ---------- Mobile ---------- */
+@media (max-width: 680px) {
+    :root { --appbar-h: 56px; }
+    .appbar-inner { padding: 0 12px; gap: 10px; }
+    .save-badge { display: none; }
+    .label-long { display: none; }
+    .label-short { display: inline; }
+    .btn-primary { padding: 8px 14px; }
 
-.notice-banner {
-    background-color: #e8f4fd;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
-    padding: 10px;
-    font-size: 13px;
-    text-align: center;
-    border-radius: 4px;
-    font-family: sans-serif;
+    #printable-area { padding: 14px 10px 4px; }
+    .hero { flex-direction: column; gap: 10px; padding: 18px 16px 22px; text-align: center; }
+    .logo { height: 38px; }
+    .subtitle { font-size: 14px; }
+    .player-info { padding: 16px 14px; }
+    .player-grid { grid-template-columns: 1fr; gap: 10px; }
+
+    /* Keep the active clue in view while typing (keyboard covers the bottom) */
+    .clue-bar { position: sticky; top: calc(var(--appbar-h) + env(safe-area-inset-top) + 6px); z-index: 20; margin-left: -2px; margin-right: -2px; }
+    .clue-bar-text { font-size: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .board-scroller { padding: 6px; border-radius: 12px; }
+    .board { --gap: 2px; }
+    .zoom-only { display: inline-flex; }
+    .toolbar .btn { min-height: 40px; padding: 8px 11px; font-size: 13px; }
+    .hint { display: none; }
+
+    .clues-column { padding: 14px 10px 4px; }
+    .clues-container { grid-template-columns: 1fr; gap: 6px; }
+    .clue { padding: 10px 8px; }
 }
 
-/* =======================================
-   SPLIT VIEW STYLES
-   ======================================= */
-@media (min-width: 850px) {
-    #main-layout.split-view {
-        display: flex;
-        gap: 30px;
-        align-items: flex-start;
-        margin-top: 25px; 
-    }
-    #main-layout.split-view .puzzle-container,
-    #main-layout.split-view .clues-wrapper {
-        margin-top: 0; 
-        margin-bottom: 0;
-    }
-    #main-layout.split-view .puzzle-container {
-        flex: 1.2;
-    }
-    #main-layout.split-view .clues-wrapper {
-        flex: 1;
-    }
-    #main-layout.split-view .clues-container {
-        grid-template-columns: 1fr; 
-        max-height: 600px; 
-    }
+@media (hover: none) { .clue:hover { background: transparent; } .clue.active { background: var(--word-hl); } }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* =========================================================
+   PDF EXPORT MODE (.pdf-mode is added to #printable-area
+   only while html2pdf renders). Fixed A4-friendly width,
+   single column, grid on page 1, clues on page 2.
+   ========================================================= */
+#printable-area.pdf-mode {
+    width: 720px !important; max-width: none !important;
+    padding: 16px 18px !important; margin: 0 !important; background: #fff;
 }
-@media (max-width: 849px) {
-    .btn-split-view { display: none !important; }
+.pdf-mode .no-pdf { display: none !important; }
+.pdf-mode .card, .pdf-mode .hero, .pdf-mode .board-scroller { box-shadow: none !important; }
+.pdf-mode .hero { flex-direction: row !important; text-align: left; padding: 14px 18px 18px !important; margin-bottom: 10px !important; gap: 18px !important; }
+.pdf-mode .hero-text { text-align: center; padding-right: 140px !important; }
+.pdf-mode .logo { height: 40px !important; }
+.pdf-mode .hero h1 { font-size: 30px !important; }
+.pdf-mode .subtitle { font-size: 13px !important; }
+.pdf-mode .player-info { padding: 12px 14px !important; margin-bottom: 12px !important; }
+.pdf-mode .player-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px 12px !important; }
+.pdf-mode .field input { min-height: 0 !important; padding: 6px 10px !important; font-size: 14px !important; }
+.pdf-mode #main-layout { display: block !important; }
+.pdf-mode .puzzle-column { position: static !important; }
+.pdf-mode .board-scroller { overflow: visible !important; padding: 10px !important; }
+.pdf-mode .board { width: 560px !important; max-width: none !important; background-image: none !important; }
+.pdf-mode .cell input { display: none !important; }
+/* Fixed px sizes: container-query units are not reliable inside html2canvas in every browser */
+.pdf-mode .cell .cell-print { display: flex !important; visibility: visible !important; opacity: 1 !important; color: #2a1b6b !important; font-size: calc(560px / var(--cols) * .55) !important; padding-top: 10% !important; }
+.pdf-mode .cell-num { font-size: calc(560px / var(--cols) * .27) !important; }
+.pdf-mode .cell.tile, .pdf-mode .cell.tile.word, .pdf-mode .cell.tile.cross, .pdf-mode .cell.tile.active {
+    background: #fff !important; border-color: var(--tile-border) !important; box-shadow: none !important;
 }
-
-
-/* PUZZLE CONTAINER */
-.puzzle-container {
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-
-#grid-wrapper { display: flex; justify-content: center; margin: 0 0 10px 0; overflow-x: auto;}
-table.cw-grid { border-collapse: collapse; background-color: var(--bg-dark); border: 3px solid #311b92; }
-
-table.cw-grid td {
-    width: 32px;
-    aspect-ratio: 1 / 1; 
-    padding: 0;
-    position: relative;
-    border: 1px solid rgba(255,255,255,0.15);
-}
-
-table.cw-grid td.active-cell { background-color: #fff; border: 1px solid #7e57c2; }
-table.cw-grid td.highlighted { background-color: #fffacd !important; }
-table.cw-grid td.highlighted input:focus { background: #ffeb3b; outline: none; }
-
-table.cw-grid td .cell-num {
-    position: absolute;
-    top: 2px; left: 3px;
-    font-size: 9px; font-weight: bold; font-family: sans-serif; pointer-events: none;
-}
-
-table.cw-grid td input {
-    width: 100%; height: 100%;
-    min-height: 0 !important; 
-    text-align: center; font-size: 15px; font-weight: bold;
-    text-transform: uppercase; border: none; background: transparent;
-    padding: 8px 0 0 0; margin: 0; box-sizing: border-box; color: #000;
-}
-
-table.cw-grid td input:focus { outline: 2px solid #0056b3; background: #e8f0fe; }
-
-.grid-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 840px;
-    margin: 0 auto 10px auto;
-    font-family: sans-serif;
-}
-
-.left-controls { display: flex; align-items: center; gap: 10px; }
-.btn-subtle-reset { background: none; border: 1px solid #dc3545; color: #dc3545; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer;}
-.btn-icon { background: #fff; border: 1px solid #bbb; padding: 5px 12px; border-radius: 4px; font-size: 13px; cursor: pointer; margin-left: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);}
-.btn-icon:active { background: #eee; }
-
-/* CLUES WRAPPER */
-.clues-wrapper {
-    border: 2px solid #fb8c00; 
-    border-radius: 12px;
-    box-shadow: 0 0 0 4px #7e57c2, 0 4px 15px rgba(0,0,0,0.1);
-    background: #ffffff;
-    padding: 25px 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.clues-main-title { text-align: center; margin-bottom: 25px; }
-.clues-main-title h2 { margin: 0; font-size: 32px; font-weight: 900; color: #111528; letter-spacing: 1px; text-transform: uppercase; }
-
-.tricolor-line {
-    height: 5px; width: 140px; margin: 8px auto;
-    background: linear-gradient(to right, #7e57c2 33.3%, #e91e63 33.3%, #e91e63 66.6%, #fb8c00 66.6%);
-}
-
-.clues-main-title p { margin: 5px 0 0 0; font-size: 15px; font-style: italic; color: #512da8; }
-
-.clues-container { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 30px; 
-    max-height: 400px; 
-    overflow-y: auto;
-}
-
-.clue-column h3 { background-color: #7e57c2; padding: 8px; border-radius: 8px; color: white; text-align: center; font-size: 16px; margin-top: 0; text-transform: uppercase; }
-.clue-column:nth-child(2) h3 { background-color: #d81b60; } 
-
-.clue-column ul { list-style: none; padding-left: 0; margin: 0; font-size: 13px; line-height: 1.55;}
-.clue-column li { margin-bottom: 12px; display: flex; align-items: flex-start; transition: all 0.3s ease; }
-
-.clue-badge {
-    display: inline-flex; justify-content: center; align-items: center; width: 22px; height: 22px;
-    border-radius: 50%; color: white; font-weight: bold; font-size: 11px; margin-right: 10px; flex-shrink: 0;
-}
-
-.clue-text { flex: 1; line-height: 1.4; }
-.clue-filled { text-decoration: line-through; opacity: 0.6; }
-.pdf-stamp { text-align: right; font-size: 10px; color: #888; font-family: monospace; margin-top: 30px;}
-
-/* MOBILE BREAKPOINT */
-@media (max-width: 650px) {
-    .branding-header { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
-    .logo { flex: auto; max-height: 55px; object-position: center; }
-    
-    /* Safely release text locks on Mobile */
-    .title-area { width: 100%; margin-right: 0; padding: 0; }
-    .title-area h1 { white-space: normal; } 
-    
-    .clues-container { grid-template-columns: 1fr; gap: 20px; }
-    #printable-area { padding: 15px; }
-}
+.pdf-mode .clues-column { margin-top: 0 !important; padding: 12px 14px 6px !important; break-before: page; page-break-before: always; }
+.pdf-mode .clues-container { grid-template-columns: 1fr !important; }
+.pdf-mode .clue { padding: 3px 4px !important; margin-bottom: 2px !important; font-size: 12.5px !important; line-height: 1.38 !important; break-inside: avoid; page-break-inside: avoid; background: none !important; border: 0 !important; }
+.pdf-mode .clue.filled .clue-text { color: var(--ink) !important; }
 
 @media print {
-    body { background: white; padding: 0; }
-    .toolbar, .no-print, .grid-controls { display: none !important; }
-    #printable-area { box-shadow: none; border: none; padding: 0; width: 100%; max-width: 100%; }
-    .clues-container { max-height: none !important; overflow: visible !important; border: none !important; background: transparent !important; }
+    .no-print, .no-pdf { display: none !important; }
+    body { background: #fff; }
+    .puzzle-column { position: static; }
+    #main-layout { display: block; }
 }
 
-
-/* ====================================================
-   PDF PRINT MODE  ==================================================== */
-.pdf-mode { 
-    padding: 20px 30px !important; 
-    background: white !important;
-    max-width: 100% !important; 
+/* Static print sheet built by exportPdf(): plain values + pre-drawn grid image */
+.pdf-mode .field-value {
+    padding: 6px 10px; min-height: 32px; border: 1.5px solid var(--line); border-radius: 10px;
+    background: #fff; color: var(--ink); font-size: 14px; font-weight: 600;
 }
-
-/* 1. MOBILE VIEW: Forces header to remain compact and horizontal during PDF export */
-.pdf-mode .branding-header { 
-    flex-direction: row !important; 
-    margin-bottom: 10px !important; 
-    padding-bottom: 10px !important; 
-}
-.pdf-mode .logo { 
-    flex: 0 0 120px !important; 
-    max-height: 42px !important; 
-    object-position: left !important;
-    margin: 0 !important;
-}
-.pdf-mode .title-area { 
-    width: auto !important; 
-    margin-right: 120px !important; 
-    padding: 0 15px !important; 
-}
-.pdf-mode .title-area h1 { 
-    white-space: nowrap !important; 
-    font-size: 18px !important; 
-}
-
-.pdf-mode .table-header { margin-bottom: 10px !important; }
-.pdf-mode .player-info { margin-bottom: 10px !important; padding: 10px !important; }
-
-/* 2. OPTIMIZED SCALING: Scale Grid to 75% to guarantee a 29-row grid never overflows vertically */
-.pdf-mode .puzzle-container { 
-    margin-top: 5px !important; 
-    margin-bottom: 0px !important; 
-    page-break-after: always !important; 
-    break-after: page !important;
-}
-.pdf-mode table.cw-grid { width: 75% !important; margin: 0 auto !important; }
-
-/* 3. Strip layout-grids entirely. Everything becomes display: block */
-.pdf-mode #main-layout { display: block !important; }
-
-.pdf-mode .grid-controls, 
-.pdf-mode .notice-banner { 
-    display: none !important; 
-}
-
-/* Safely anchor Clues block to Page 2 */
-.pdf-mode .clues-wrapper { 
-    page-break-before: auto !important; 
-    break-before: auto !important;
-    box-shadow: 0 0 0 4px #7e57c2 !important; 
-    margin-top: 20px !important; 
-    display: block !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-}
-
-.pdf-mode .clues-container { 
-    display: block !important; 
-    height: auto !important;
-    max-height: none !important; 
-    overflow: visible !important; 
-}
-
-.pdf-mode .clue-column { 
-    display: block !important; 
-    width: 100% !important; 
-    margin-bottom: 20px !important;
-}
-
-/* 4. ULTIMATE FIX FOR TEXT SLICING: Convert to Absolute Layouts */
-.pdf-mode .clue-column ul {
-    display: block !important;
-}
-
-.pdf-mode .clue-column li { 
-    display: block !important; 
-    width: 100% !important;
-    position: relative !important;
-    padding-left: 32px !important; 
-    min-height: 25px !important;
-    page-break-inside: avoid !important; 
-    break-inside: avoid !important;
-    margin-bottom: 15px !important;
-    box-sizing: border-box !important;
-}
-
-.pdf-mode .clue-badge {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
-    display: inline-block !important; 
-    line-height: 22px !important; 
-    text-align: center !important;
-    margin: 0 !important;
-}
-
-.pdf-mode .clue-text {
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    page-break-inside: avoid !important;
-}
-
-.pdf-mode .pdf-stamp {
-    display: block !important; 
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    margin-top: 40px !important;
-    padding-bottom: 20px !important;
-}
+.pdf-mode .pdf-board { border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; text-align: center; background: #fff; }
+.pdf-mode .pdf-board img { width: 560px; height: auto; display: inline-block; }
+.pdf-mode .clues-column { position: static !important; max-height: none !important; overflow: visible !important; }
